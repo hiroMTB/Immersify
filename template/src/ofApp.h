@@ -26,25 +26,19 @@ public:
     void end(bool equi, ShaderType type);
     
     ofx360Projection proj;
-    
     ofEasyCam normalCam;
     
     ofxPanel gui;
     ofxLabel fps;
     ofParameterGroup prm;
-    ofParameter<bool> bEqui;
     ofParameter<bool> bDraw2dGuide;
     ofParameter<bool> bDraw3dGuide;
     ofParameter<bool> bDrawPoints;
     ofParameter<bool> bDrawLines;
     ofParameter<bool> bDrawTriangles;
-    ofParameter<float> shereAngle;
-    ofParameter<glm::vec3> objPos;
-    ofParameter<float> objScale;
     ofxButton btnSaveScreen;
     
-    ofVboMesh vboPoints;
-    ofVboMesh vboLines;
-    
     ofCylinderPrimitive cylinder;
+    
+    ofBoxPrimitive box;
 };
