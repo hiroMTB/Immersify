@@ -15,9 +15,9 @@ void ofApp::setup(){
     proj.getCamera().setNearClip(1);
     proj.getCamera().setFarClip(10000);
     
-    normalCam.setNearClip(0.01);
+    normalCam.setNearClip(0.1);
     normalCam.setFarClip(1000);
-    normalCam.setDistance(50);
+    normalCam.setDistance(15);
     
     gui.setup();
     prm.add(bDraw2dGuide.set("Draw 2D Guide", false));
@@ -43,6 +43,7 @@ void ofApp::setup(){
     cylinder.setPosition(0, 0, 0);
     
     box.set(1,1,1);
+    box.setResolution(1);
     box.setPosition(10,0,0);
 }
 
@@ -73,37 +74,33 @@ void ofApp::draw(){
 void ofApp::drawScene(bool equi){
 
     
-//    if(bDrawPoints){
-//        glPointSize(3);
-//        begin(equi, ShaderType::POINT_SHADER);
-//        ofSetColor(255, 0, 0);
-//        //cylinder.getMesh().setMode(OF_PRIMITIVE_POINTS);
-//        cylinder.draw(OF_MESH_POINTS);
-//        box.draw(OF_MESH_POINTS);
-//        end(equi, ShaderType::POINT_SHADER);
-//    }
+    if(bDrawPoints){
+        glPointSize(5);
+        begin(equi, ShaderType::POINT_SHADER);
+        ofSetColor(255, 0, 0);
+        cylinder.getMesh().setMode(OF_PRIMITIVE_POINTS);
+        cylinder.draw(OF_MESH_POINTS);
+        box.draw(OF_MESH_POINTS);
+        end(equi, ShaderType::POINT_SHADER);
+    }
 
     if(bDrawLines){
         begin(equi, ShaderType::LINE_SHADER);
-
-        //ofDrawAxis(1);
-        ofDrawLine(3, -3, 4, 3);
-
         ofSetColor(0, 255, 0);
         cylinder.getMesh().setMode(OF_PRIMITIVE_LINES);
         cylinder.draw();
-        //box.draw(OF_MESH_WIREFRAME);
+        box.draw(OF_MESH_WIREFRAME);
         end(equi, ShaderType::LINE_SHADER);
     }
     
-//    if(bDrawTriangles){
-//        begin(equi, ShaderType::TRIANGLE_SHADER);
-//        ofSetColor(0,0,255);
-//        //cylinder.getMesh().setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
-//        cylinder.drawWireframe();
-//        box.draw(OF_MESH_WIREFRAME);
-//        end(equi, ShaderType::TRIANGLE_SHADER);
-//    }
+    if(bDrawTriangles){
+        begin(equi, ShaderType::TRIANGLE_SHADER);
+        ofSetColor(0, 0, 255);
+        cylinder.getMesh().setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
+        cylinder.drawWireframe();
+        box.draw(OF_MESH_WIREFRAME);
+        end(equi, ShaderType::TRIANGLE_SHADER);
+    }
 }
 
 void ofApp::saveScreen(){

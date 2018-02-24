@@ -19,7 +19,7 @@ float angle(vec3 v1, vec3 v2, vec3 ref){
 
     float ang = acos(dot(n1,n2));
     vec3 c = cross(n1, n2);
-    float dir = dot(c, ref);wwwww
+    float dir = dot(c, ref);
     if(dir<0){
         ang = -ang;
     }
@@ -61,10 +61,10 @@ vec4 project360(mat4 mv, vec4 inVec){ //, float clipAngle){
     float clipAngle = atan(2.15/7.44);
     float rate = clipAngle/HALF_PI;
     
-//    if(abs(y)<rate){
-//        y /= rate;
-//    }else{
-//        y = 1.1; // put this outside of screen
-//    }
+    if(abs(y)<rate){
+        y /= rate;
+    }else{
+        y = 1.1; // put this outside of screen
+    }
     return vec4(x,y,z,1);
 }
