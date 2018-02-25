@@ -33,18 +33,27 @@ void ofApp::setup(){
     float ch = 2.15;
     float clipAngle = atan(cd/ch);
     
-    cylinder.setUseVbo(true);
     cylinder.setRadius(3.72);
     cylinder.setHeight(2.15);
     cylinder.setCapped(false);
     cylinder.setResolutionRadius(16);
     cylinder.setResolutionHeight(3);
-    cylinder.setResolutionCap(1);
     cylinder.setPosition(0, 0, 0);
     
     box.set(1,1,1);
-    box.setResolution(1);
-    box.setPosition(10,0,0);
+    box.setResolution(2);
+    box.setPosition(-10,0,0);
+    
+    sphere.setRadius(1);
+    sphere.setResolution(1);
+    sphere.setPosition(0, 0, -10);
+
+    cone.setRadius(1);
+    cone.setHeight(2);
+    cone.setPosition(10, 0, 0);
+    cone.setResolution(12, 1, 1);
+    cone.setOrientation(vec3(180,0,0));
+    
 }
 
 void ofApp::update(){
@@ -64,6 +73,7 @@ void ofApp::end(bool equi, ShaderType type){
 void ofApp::draw(){
     
     ofBackground(255);
+    ofDrawAxis(1);
     drawScene(false);
     
     ofSetupScreenOrtho();
@@ -78,27 +88,32 @@ void ofApp::drawScene(bool equi){
         glPointSize(5);
         begin(equi, ShaderType::POINT_SHADER);
         ofSetColor(255, 0, 0);
-        cylinder.getMesh().setMode(OF_PRIMITIVE_POINTS);
         cylinder.draw(OF_MESH_POINTS);
         box.draw(OF_MESH_POINTS);
+        sphere.draw(OF_MESH_POINTS);
+        cone.draw(OF_MESH_POINTS);
+        
         end(equi, ShaderType::POINT_SHADER);
     }
 
     if(bDrawLines){
         begin(equi, ShaderType::LINE_SHADER);
         ofSetColor(0, 255, 0);
-        cylinder.getMesh().setMode(OF_PRIMITIVE_LINES);
-        cylinder.draw();
+        if(!equi) ofDrawAxis(1);
         box.draw(OF_MESH_WIREFRAME);
+        sphere.draw(OF_MESH_WIREFRAME);
+        cone.draw(OF_MESH_WIREFRAME);
         end(equi, ShaderType::LINE_SHADER);
     }
     
     if(bDrawTriangles){
         begin(equi, ShaderType::TRIANGLE_SHADER);
         ofSetColor(0, 0, 255);
-        cylinder.getMesh().setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
-        cylinder.drawWireframe();
+        if(!equi)cylinder.draw(OF_MESH_WIREFRAME);
+        
         box.draw(OF_MESH_WIREFRAME);
+        sphere.draw(OF_MESH_WIREFRAME);
+        cone.draw(OF_MESH_WIREFRAME);
         end(equi, ShaderType::TRIANGLE_SHADER);
     }
 }

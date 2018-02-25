@@ -39,6 +39,8 @@ public:
     ofxButton btnSaveScreen;
     
     ofCylinderPrimitive cylinder;
+    ofBoxPrimitive      box;
+    ofIcoSpherePrimitive   sphere;
+    ofConePrimitive     cone;
     
-    ofBoxPrimitive box;
 };

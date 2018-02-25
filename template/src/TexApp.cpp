@@ -26,13 +26,27 @@ void TexApp::draw(){
         ofPushMatrix();
         ofSetupScreenOrtho();
         ofTranslate(0,0);
-        ofSetColor(100, 100);
+        ofSetColor(0, 0, 255);
         ofNoFill();
-        float w4 = ofGetWidth()/4;
-        float h  = ofGetHeight();
-        ofDrawLine(w4*1, 0, w4*1, h);
-        ofDrawLine(w4*2, 0, w4*2, h);
-        ofDrawLine(w4*3, 0, w4*3, h);
+        
+        {
+            int xDiv = 16;
+            float w = ofGetWidth()/xDiv;
+            float h  = ofGetHeight();
+            
+            for(int i=1; i<xDiv; i++){
+                ofDrawLine(w*i, 0, w*i, h);
+            }
+        }
+        
+        {
+            int yDiv = ofGetHeight()/3;
+            int w = ofGetWidth();
+            for(int i=1; i<yDiv; i++){
+                ofDrawLine(0, yDiv*i, w, yDiv*i);
+            }
+        }
+        
         ofPopMatrix();
     }
 }
