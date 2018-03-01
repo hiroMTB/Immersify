@@ -33,8 +33,7 @@ float angle(vec3 v1, vec3 v2){
     vec3 n1 = normalize(v1);
     vec3 n2 = normalize(v2);
     
-    float ang = acos(dot(n1,n2));
-    return ang;
+    return ang = acos(dot(n1,n2));
 }
 
 //
@@ -64,14 +63,8 @@ vec4 project360(mat4 mv, vec4 inVec){ //, float clipAngle){
 
     // Y calc
     float delta = angle(yAxisInv, p.xyz);
-    float clipAngle = atan(2.15/7.44);
-    float y = -1.0 + delta/HALF_PI;
-    float rate = HALF_PI/clipAngle;
-    y *= rate;
-
-    // TODO why this done not work?
-    // delata returns 0~PI
-    // float y = map(delta, 0, clipAngle, -1, 1);
+    float clipAngle = atan(2.15/7.44);  // TODO This should be passed by uniform
+    float y = map(delta-HALF_PI, -clipAngle, clipAngle, -1, 1);
     
     // Z calc
     float farClip = 10000.0;    // TODO This should be passed by uniform
