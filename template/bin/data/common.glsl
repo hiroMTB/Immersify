@@ -38,33 +38,45 @@ float angle(vec3 v1, vec3 v2){
 }
 
 //
+//  min1 - max1 : input range
+//  min2 - max2 : output range
+//
+float map(float value, float min1, float max1, float min2, float max2){
+    float perc = (value - min1) / (max1 - min1);
+    return value = perc * (max2 - min2) + min2;
+}
+
+//
 //  360 projection
 //
 vec4 project360(mat4 mv, vec4 inVec){ //, float clipAngle){
     vec4 p = mv * inVec;
     p.xyz = p.xyz/p.w;
     
-    vec3 zAxis = vec3(0,0,1);
     vec3 zAxisInv = vec3(0,0,-1);
 
-    vec3 yAxis = vec3(0,-1,0);
     vec3 yAxisInv = vec3(0,-1,0);
-    
+
+    // X calc
     vec3 pXZ = vec3(p.x, 0, p.z);
-    float theta = angle(zAxisInv, pXZ, yAxis);
-    float delta = angle(yAxisInv, p.xyz);
-    
+    float theta = angle(zAxisInv, pXZ, yAxisInv);
     float x = theta/PI;
-    float y = -1.0 + 2.0 * delta/PI;
-    float z = 0;
-    
+
+    // Y calc
+    float delta = angle(yAxisInv, p.xyz);
     float clipAngle = atan(2.15/7.44);
-    float rate = clipAngle/HALF_PI;
+    float y = -1.0 + delta/HALF_PI;
+    float rate = HALF_PI/clipAngle;
+    y *= rate;
+
+    // TODO why this done not work?
+    // delata returns 0~PI
+    // float y = map(delta, 0, clipAngle, -1, 1);
     
-    if(abs(y)<rate){
-        y /= rate;
-    }else{
-        y = 1.1; // put this outside of screen
-    }
+    // Z calc
+    float farClip = 10000.0;    // TODO This should be passed by uniform
+    float nearClip = 3.72;      // TODO This should be passed by uniform
+    float z = map(length(p.xz), nearClip, farClip, -1, 1);
+
     return vec4(x,y,z,1);
 }

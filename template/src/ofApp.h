@@ -36,6 +36,9 @@ public:
     ofParameter<bool> bDrawPoints;
     ofParameter<bool> bDrawLines;
     ofParameter<bool> bDrawTriangles;
+    ofParameter<float> objDistance;
+    ofParameter<float> objHeight;
+    
     ofxButton btnSaveScreen;
     
     ofCylinderPrimitive cylinder;

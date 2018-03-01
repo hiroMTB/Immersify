@@ -25,6 +25,9 @@ void ofApp::setup(){
     prm.add(bDrawLines.set("Draw Lines", true));
     prm.add(bDrawTriangles.set("Draw Triangles", true));
     gui.add(fps.setup("fps", "0"));
+    gui.add(objDistance.set("Object Distance", 10, 0, 100));
+    gui.add(objHeight.set("Object Height", 0, -10, 10));
+    
     gui.add(prm);
     gui.add(btnSaveScreen.setup("save screen"));
     btnSaveScreen.addListener(this, &ofApp::saveScreen);
@@ -42,15 +45,15 @@ void ofApp::setup(){
     
     box.set(1,1,1);
     box.setResolution(2);
-    box.setPosition(-10,0,0);
+    box.setPosition(-objDistance,objHeight,0);
     
     sphere.setRadius(1);
     sphere.setResolution(1);
-    sphere.setPosition(0, 0, -10);
+    sphere.setPosition(0, objHeight, -objDistance);
 
     cone.setRadius(1);
     cone.setHeight(2);
-    cone.setPosition(10, 0, 0);
+    cone.setPosition(objDistance, objHeight, 0);
     cone.setResolution(12, 1, 1);
     cone.setOrientation(vec3(180,0,0));
     
@@ -58,6 +61,10 @@ void ofApp::setup(){
 
 void ofApp::update(){
     fps = ofToString(ofGetFrameRate());
+    
+    box.setPosition(-objDistance,objHeight,0);
+    sphere.setPosition(0, objHeight, -objDistance);
+    cone.setPosition(objDistance, objHeight, 0);
 }
 
 void ofApp::begin(bool equi, ShaderType type){
