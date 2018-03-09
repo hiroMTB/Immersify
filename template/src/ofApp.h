@@ -38,6 +38,7 @@ public:
     ofParameter<bool> bDrawTriangles;
     ofParameter<float> objDistance;
     ofParameter<float> objHeight;
+    ofParameter<float> objAngle;
     
     ofxButton btnSaveScreen;
     

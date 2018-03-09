@@ -27,6 +27,7 @@ void ofApp::setup(){
     gui.add(fps.setup("fps", "0"));
     gui.add(objDistance.set("Object Distance", 10, 0, 100));
     gui.add(objHeight.set("Object Height", 0, -10, 10));
+    gui.add(objAngle.set("Object Angle", 0, -180, 180));
     
     gui.add(prm);
     gui.add(btnSaveScreen.setup("save screen"));
@@ -61,10 +62,29 @@ void ofApp::setup(){
 
 void ofApp::update(){
     fps = ofToString(ofGetFrameRate());
+
+    float y = objHeight;
+    float deg = ofDegToRad(objAngle);
+    {
+        float deg1 = deg + PI;
+        float x = cos(deg1) * objDistance;
+        float z = sin(deg1) * objDistance;
+        box.setPosition(x,y,z);
+    }
     
-    box.setPosition(-objDistance,objHeight,0);
-    sphere.setPosition(0, objHeight, -objDistance);
-    cone.setPosition(objDistance, objHeight, 0);
+    {
+        float deg1 = deg - HALF_PI;
+        float x = cos(deg1) * objDistance;
+        float z = sin(deg1) * objDistance;
+        sphere.setPosition(x,y,z);
+    }
+    
+    {
+        float deg1 = deg;
+        float x = cos(deg1) * objDistance;
+        float z = sin(deg1) * objDistance;
+        cone.setPosition(x,y,z);
+    }
 }
 
 void ofApp::begin(bool equi, ShaderType type){
