@@ -33,7 +33,7 @@ float angle(vec3 v1, vec3 v2){
     vec3 n1 = normalize(v1);
     vec3 n2 = normalize(v2);
     
-    return ang = acos(dot(n1,n2));
+    return acos(dot(n1,n2));
 }
 
 //
