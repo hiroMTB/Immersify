@@ -46,6 +46,56 @@ float map(float value, float min1, float max1, float min2, float max2){
 }
 
 //
+//  find intersection of a segment and a plane
+//
+//  input
+//  s0, s1 = segment
+//  v, n = plane
+//
+//  output vec4 ret;
+//  ret.w = 0 -> no intersection
+//  ret.w = 1 -> found intersection
+//  ret.w = 2 -> segment is in plane
+//  http://geomalgorithms.com/a05-_intersect-1.html
+vec4 intersect_SP(vec3 s0, vec3 s1, vec3 v, vec3 n){
+   
+    vec4 ret;
+    
+    vec3 u = s1 - s0;
+    vec3 w = s0 - v;
+    
+    float D = dot(n, u);
+    float N = -dot(n, w);
+    
+    float SMALL_NUM = 0.00001;  // ??
+    
+    if (abs(D) < SMALL_NUM) {
+        // segment is parallel to plane
+        if (N == 0){
+            // segment lies in plane
+            ret.w = 2;
+        }else{
+            // no intersection
+            ret.w = 0;
+        }
+        return ret;
+    }
+    
+    float sI = N / D;
+    if (sI < 0 || sI > 1){
+        // no intersection
+        ret.w = 0;
+        return ret;
+    }
+    
+    // compute segment intersect point
+    ret.xyz = s0 + sI * u;
+    ret.w = 1;
+    return ret;
+}
+
+
+//
 //  360 projection
 //
 vec4 project360(mat4 mv, vec4 inVec){ //, float clipAngle){

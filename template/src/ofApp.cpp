@@ -27,7 +27,7 @@ void ofApp::setup(){
     gui.add(fps.setup("fps", "0"));
     gui.add(objDistance.set("Object Distance", 10, 0, 100));
     gui.add(objHeight.set("Object Height", 0, -10, 10));
-    gui.add(objAngle.set("Object Angle", 0, -180, 180));
+    gui.add(objAngle.set("Object Angle", 0, -360, 360));
     
     gui.add(prm);
     gui.add(btnSaveScreen.setup("save screen"));
