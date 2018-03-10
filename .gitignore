@@ -117,3 +117,4 @@ Makefile
 #vscode
 */.vscode/*
 *.png
+*.csv
