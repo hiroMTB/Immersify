@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxTextureRecorder.h"
 
 class TexApp: public ofBaseApp {
 
@@ -16,6 +17,8 @@ public:
     void setup();
     void update();
     void draw();
-    
+    ofxTextureRecorder rec;
+    ofFbo fbo;        
+
 };
 

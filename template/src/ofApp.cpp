@@ -30,8 +30,10 @@ void ofApp::setup(){
     gui.add(objAngle.set("Object Angle", 0, -360, 360));
     
     gui.add(prm);
-    gui.add(btnSaveScreen.setup("save screen"));
-    btnSaveScreen.addListener(this, &ofApp::saveScreen);
+    gui.add(bStartRender.set("start render", false));
+    gui.add(bSaveTex.set("Save texture", false));
+    gui.add(bSaveScene.set("Save Scene", false));
+    
     
     float cd = 7.44;
     float ch = 2.15;
@@ -57,7 +59,6 @@ void ofApp::setup(){
     cone.setPosition(objDistance, objHeight, 0);
     cone.setResolution(12, 1, 1);
     cone.setOrientation(vec3(180,0,0));
-    
 }
 
 void ofApp::update(){
@@ -106,11 +107,14 @@ void ofApp::draw(){
     ofSetupScreenOrtho();
     ofDisableDepthTest();
     gui.draw();
+    
+    if(bStartRender && bSaveScene){
+        ofSaveScreen("ss.png");
+    }
 }
 
 void ofApp::drawScene(bool equi){
 
-    
     if(bDrawPoints){
         glPointSize(5);
         begin(equi, ShaderType::POINT_SHADER);
@@ -145,6 +149,3 @@ void ofApp::drawScene(bool equi){
     }
 }
 
-void ofApp::saveScreen(){
-    ofSaveScreen("screenshot.png");
-}

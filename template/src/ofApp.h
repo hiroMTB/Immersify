@@ -21,7 +21,8 @@ public:
     
     void draw();
     void drawScene(bool equi);
-    void saveScreen();
+    void startRender();
+
     void begin(bool equi,  ShaderType type);
     void end(bool equi, ShaderType type);
     
@@ -40,11 +41,12 @@ public:
     ofParameter<float> objHeight;
     ofParameter<float> objAngle;
     
-    ofxButton btnSaveScreen;
+    ofParameter<bool> bStartRender;
+    ofParameter<bool> bSaveTex;
+    ofParameter<bool> bSaveScene;
     
-    ofCylinderPrimitive cylinder;
-    ofBoxPrimitive      box;
+    ofCylinderPrimitive     cylinder;
+    ofBoxPrimitive          box;
     ofIcoSpherePrimitive   sphere;
-    ofConePrimitive     cone;
-    
+    ofConePrimitive         cone;
 };
